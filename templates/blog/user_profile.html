@@ -1,0 +1,24 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+  <h2>User Profile</h2>
+  <div class="user-profile">
+    <img src="{{ user_profile.user.userprofile.avatar.url }}" alt="Avatar" class="avatar">
+    <p><strong>Имя:</strong> {{ user.first_name }}</p>
+    <p><strong>Группа:</strong> {{ user.groups.first }}</p>
+    <p><strong>Страна:</strong> {{ user.userprofile.country }}</p>
+    <hr>
+    <h3>Статистика</h3>
+    <p><strong>Количество комментариев:</strong> {{ user.userprofile.comment_count }}</p>
+    <p><strong>Материалов добавлено:</strong> {{ user.userprofile.post_count }}</p>
+    <p><strong>Записей на форуме:</strong> {{ user.userprofile.forum_posts }}</p>
+    <p><strong>Записей в блоге:</strong> {{ user.userprofile.blog_posts }}</p>
+    <p><strong>Дней на сайте:</strong> {{ user.userprofile.days_on_site }}</p>
+    <p><strong>Репутация на сайте:</strong> {{ user.userprofile.reputation }}</p>
+    <a href="{% url 'edit_profile' %}" class="btn btn-primary">Редактировать профиль</a>
+
+
+    <a href="#" class="btn btn-success">Личное сообщение</a>
+
+  </div>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<!-- Blog Post -->
+<!-- Debugging Output -->
+
+<!-- Title -->
+<h1>{{post.title}}</h1>
+
+<!-- Author -->
+<p class="lead">
+    by <a href="/">{{post.user}}</a>
+</p>
+<hr>
+
+<!-- Date/Time -->
+<p><span class="glyphicon glyphicon-time"></span> Posted on {{post.published_date}}</p>
+<hr>
+
+<!-- Preview Image -->
+<img class="img-responsive" src={{post.image}} alt="">
+
+<hr>
+
+<!-- Post Content -->
+<p>{{post.content}}</p>
+<hr>
+
+<!-- Blog Comments -->
+
+<!-- Comments Form -->
+<div class="well">
+    <h4>Leave a Comment:</h4>
+    <form method="POST" action="{% url 'add_comment' post.id %}">
+        {% csrf_token %}
+        {{comment_form | crispy}}
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<hr>
+
+<!-- Posted Comments -->
+{% for comment in comments %}
+<!-- Comment -->
+<div class="media">
+    <a class="pull-left" href="#">
+        <img class="media-object" src="http://placehold.it/64x64" alt="">
+    </a>
+    <div class="media-body">
+        <h4 class="media-heading">{{ comment.author.username }}
+            <small>{{ comment.datetime }}</small>
+        </h4>
+        {{ comment.text }}
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}
+
